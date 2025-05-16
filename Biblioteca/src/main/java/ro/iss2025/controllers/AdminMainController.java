@@ -58,7 +58,7 @@ public class AdminMainController implements Observer<Event> {
             Scene scene = new Scene(loader.load());
 
             SystemManagerController controller = loader.getController();
-            //controller.setService(service, adminUser);
+            controller.setService(service, adminUser);
 
             Stage stage = new Stage();
             stage.setTitle("System Manager");

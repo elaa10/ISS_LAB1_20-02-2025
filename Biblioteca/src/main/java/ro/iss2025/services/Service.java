@@ -82,6 +82,53 @@ public class Service implements Observable<Event> {
         return updated;
     }
 
+    public boolean addBook(Book book) {
+        boolean added = bookRepository.save(book);
+        if (added) {
+            notifyObservers(new AvailabilityEvent(null));
+        }
+        return added;
+    }
+
+    public boolean addExemplar(Exemplar exemplar) {
+        boolean added = exemplarRepository.save(exemplar);
+        if (added) {
+            notifyObservers(new AvailabilityEvent(exemplar));
+        }
+        return added;
+    }
+
+    public boolean deleteExemplar(Integer id) {
+        boolean deleted = exemplarRepository.delete(id);
+        if (deleted) {
+            notifyObservers(new AvailabilityEvent(null));
+        }
+        return deleted;
+    }
+
+    public List<User> getAllUsers() {
+        List<User> all = new ArrayList<>();
+        userRepository.findAll().forEach(all::add);
+        return all;
+    }
+
+    public boolean deleteUser(Integer id) {
+        boolean deleted = userRepository.delete(id);
+        if (deleted) {
+            notifyObservers(new AvailabilityEvent(null));
+        }
+        return deleted;
+    }
+
+    public boolean updateBook(Book book) {
+        boolean updated = bookRepository.update(book);
+        if (updated) {
+            notifyObservers(new AvailabilityEvent(null));
+        }
+        return updated;
+    }
+
+
     @Override
     public void addObserver(Observer<Event> observer) {
         observers.add(observer);

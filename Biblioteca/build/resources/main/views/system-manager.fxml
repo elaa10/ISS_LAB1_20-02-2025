@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            fx:controller="ro.iss2025.controllers.SystemManagerController">
+
+    <top>
+        <HBox spacing="20">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Exemplars Table -->
+            <VBox spacing="10">
+                <Label text="Exemplare" />
+                <TableView fx:id="exemplarTable" prefWidth="900">
+                    <columns>
+                        <TableColumn fx:id="exemplarIdColumn" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="titleColumn" text="Titlu" prefWidth="150"/>
+                        <TableColumn fx:id="authorColumn" text="Autor" prefWidth="120"/>
+                        <TableColumn fx:id="publishingHouseColumn" text="Editura" prefWidth="120"/>
+                        <TableColumn fx:id="pagesColumn" text="Pagini" prefWidth="60"/>
+                        <TableColumn fx:id="coverTypeColumn" text="Copertă" prefWidth="80"/>
+                        <TableColumn fx:id="conditionColumn" text="Stare" prefWidth="100"/>
+                        <TableColumn fx:id="bookedColumn" text="Rezervat" prefWidth="80"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Users Table -->
+            <VBox spacing="10">
+                <Label text="Utilizatori" />
+                <TableView fx:id="userTable" prefWidth="300">
+                    <columns>
+                        <TableColumn fx:id="userIdColumn" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="userNameColumn" text="Nume" prefWidth="150"/>
+                        <TableColumn fx:id="userPhoneColumn" text="Telefon" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Book Fields -->
+            <Label text="Carte - completare sau modificare" />
+            <HBox spacing="10">
+                <TextField fx:id="titleField" promptText="Titlu"/>
+                <TextField fx:id="authorField" promptText="Autor"/>
+                <TextField fx:id="publishingHouseField" promptText="Editura"/>
+                <TextField fx:id="pagesField" promptText="Pagini"/>
+                <TextField fx:id="coverTypeField" promptText="Copertă (ex: HARD, SOFT)"/>
+            </HBox>
+            <Button fx:id="addBookButton" text="Adaugă carte nouă"/>
+
+            <Separator/>
+
+            <!-- Exemplar Management -->
+            <Label text="Gestionare exemplar" />
+            <HBox spacing="10">
+                <TextField fx:id="conditionField" promptText="Stare nouă"/>
+                <Button fx:id="updateButton" text="Actualizează exemplar și carte"/>
+                <Button fx:id="deleteExemplarButton" text="Șterge exemplar selectat"/>
+                <Button fx:id="addExemplarButton" text="Adaugă exemplar la carte selectată"/>
+            </HBox>
+
+            <Separator/>
+
+            <!-- User Management -->
+            <Label text="Gestionare utilizatori" />
+            <Button fx:id="deleteUserButton" text="Șterge utilizator selectat"/>
+        </VBox>
+    </center>
+</BorderPane>

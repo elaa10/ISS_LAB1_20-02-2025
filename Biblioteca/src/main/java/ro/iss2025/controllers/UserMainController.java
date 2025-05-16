@@ -12,9 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ro.iss2025.domain.Book;
-import ro.iss2025.domain.Exemplar;
-import ro.iss2025.domain.User;
+import ro.iss2025.domain.*;
 import ro.iss2025.services.Service;
 import ro.iss2025.utils.events.Event;
 import ro.iss2025.utils.observer.Observer;
@@ -35,6 +33,8 @@ public class UserMainController implements Initializable, Observer<Event> {
     private VBox booksPane;
     @FXML
     private ImageView cartIcon;
+    @FXML
+    private Button myAccountButton;
 
     private Service service;
     private User loggedInUser;
@@ -47,6 +47,7 @@ public class UserMainController implements Initializable, Observer<Event> {
         loadBooks();
 
         cartIcon.setOnMouseClicked(e -> openCartWindow());
+        myAccountButton.setOnMouseClicked(e -> openAccountWindow());
     }
 
     private void openCartWindow() {
@@ -68,6 +69,27 @@ public class UserMainController implements Initializable, Observer<Event> {
             ex.printStackTrace();
         }
     }
+
+    private void openAccountWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/user-borrows.fxml"));
+            BorderPane root = loader.load();
+
+            UserBorrowsController controller = loader.getController();
+            Stage dialogStage = new Stage();
+            controller.setService(service, loggedInUser);
+
+            Scene scene = new Scene(root);
+            dialogStage.setTitle("Cărțile mele");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.setScene(scene);
+            dialogStage.show();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
     private Node createBookItem(Exemplar ex) {
         Book book = ex.getBook();
@@ -97,8 +119,10 @@ public class UserMainController implements Initializable, Observer<Event> {
         Tooltip.install(cartBtn, new Tooltip("Adaugă în coș"));
         cartBtn.setOnMouseClicked(e -> {
             if (!cart.contains(ex)) {
-                cart.add(ex);
-                showInfo("Carte adăugată în coș.");
+                if (!ex.getBooked()) {
+                    cart.add(ex);
+                    showInfo("Carte adăugată în coș.");
+                } else showInfo("Carte nu este disponibilă.");
             } else {
                 showInfo("Cartea este deja în coș.");
             }
@@ -114,7 +138,6 @@ public class UserMainController implements Initializable, Observer<Event> {
         return itemBox;
     }
 
-
     private void loadBooks() {
         booksPane.getChildren().clear();
         List<Exemplar> exemplars = service.getAllExemplars();
@@ -122,7 +145,6 @@ public class UserMainController implements Initializable, Observer<Event> {
             booksPane.getChildren().add(createBookItem(ex));
         }
     }
-
 
     @FXML
     private void handleSearch() {
@@ -140,7 +162,6 @@ public class UserMainController implements Initializable, Observer<Event> {
         }
     }
 
-
     @Override
     public void update(Event event) {
         loadBooks();
@@ -157,5 +178,4 @@ public class UserMainController implements Initializable, Observer<Event> {
         alert.setContentText(msg);
         alert.showAndWait();
     }
-
 }

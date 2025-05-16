@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            fx:controller="ro.iss2025.controllers.AdminMainController"
+            prefWidth="600" prefHeight="400">
+
+    <HBox spacing="40" AnchorPane.topAnchor="100" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
+        <Button fx:id="returnBooksButton" text="Returnează cărți" prefWidth="200" prefHeight="200"
+                onAction="#handleReturnBooks" style="-fx-font-size: 16px;"/>
+        <Button fx:id="systemManagerButton" text="System manager" prefWidth="200" prefHeight="200"
+                onAction="#handleSystemManager" style="-fx-font-size: 16px;"/>
+    </HBox>
+</AnchorPane>

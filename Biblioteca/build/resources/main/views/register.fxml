@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            fx:controller="ro.iss2025.controllers.RegisterController"
+            prefWidth="400" prefHeight="400">
+
+    <VBox alignment="CENTER" spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <Label text="REGISTER" style="-fx-font-size: 24px;"/>
+
+        <TextField fx:id="nameField" promptText="Nume"/>
+        <TextField fx:id="addressField" promptText="Adresa"/>
+        <TextField fx:id="phoneField" promptText="Telefon"/>
+        <TextField fx:id="cnpField" promptText="CNP"/>
+        <PasswordField fx:id="passwordField" promptText="Parola"/>
+
+        <Button text="REGISTER" onAction="#handleRegister" style="-fx-background-color: lightblue;"/>
+    </VBox>
+</AnchorPane>

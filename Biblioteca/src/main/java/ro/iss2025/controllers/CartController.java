@@ -17,6 +17,7 @@ import ro.iss2025.utils.events.Event;
 import ro.iss2025.utils.observer.Observer;
 
 import java.time.ZonedDateTime;
+import java.util.Iterator;
 import java.util.List;
 
 public class CartController implements Observer<Event> {
@@ -66,7 +67,7 @@ public class CartController implements Observer<Event> {
 
             ImageView deleteIcon = new ImageView(new Image("/views/delete-icon.png"));
             deleteIcon.setPickOnBounds(true);
-            Tooltip.install(deleteIcon, new Tooltip("Sterge din cos"));
+            Tooltip.install(deleteIcon, new Tooltip("Șterge din coș"));
 
             deleteIcon.setFitHeight(20);
             deleteIcon.setFitWidth(20);
@@ -76,8 +77,7 @@ public class CartController implements Observer<Event> {
                 showInfo("Carte eliminată din coș.");
             });
 
-            StackPane imageWithDelete = new StackPane();
-            imageWithDelete.getChildren().addAll(img, deleteIcon);
+            StackPane imageWithDelete = new StackPane(img, deleteIcon);
             StackPane.setAlignment(deleteIcon, Pos.TOP_RIGHT);
 
             HBox itemBox = new HBox(10, textBox, imageWithDelete);
@@ -87,6 +87,13 @@ public class CartController implements Observer<Event> {
         }
 
         borrowButton.setOnAction(e -> {
+            // Verificare cărți deja împrumutate
+            boolean unavailable = cart.stream().anyMatch(Exemplar::getBooked);
+            if (unavailable) {
+                showInfo("Una sau mai multe cărți din coș nu sunt disponibile.");
+                return;
+            }
+
             for (Exemplar ex : cart) {
                 ZonedDateTime now = ZonedDateTime.now();
                 BorrowId id = new BorrowId(user.getId(), ex.getId(), now);
@@ -102,6 +109,23 @@ public class CartController implements Observer<Event> {
 
     @Override
     public void update(Event event) {
+        // Eliminăm din coș cărțile care au devenit indisponibile
+        boolean modified = false;
+        Iterator<Exemplar> it = cart.iterator();
+        while (it.hasNext()) {
+            Exemplar ex = it.next();
+            Exemplar fresh = service.getAllExemplars().stream()
+                    .filter(e -> e.getId() == ex.getId())
+                    .findFirst()
+                    .orElse(null);
+            if (fresh == null || fresh.getBooked()) {
+                it.remove();
+                modified = true;
+            }
+        }
+        if (modified) {
+            showInfo("Coșul a fost actualizat: unele cărți nu mai sunt disponibile.");
+        }
         initView();
     }
 

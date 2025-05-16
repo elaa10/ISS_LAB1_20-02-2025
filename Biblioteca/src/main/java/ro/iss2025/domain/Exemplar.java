@@ -13,13 +13,21 @@ public class Exemplar extends Entity<Integer> {
     @Column(nullable = false)
     private String condition;
 
+    @Column(nullable = false)
+    private Boolean booked;
+
     public Exemplar() {
     }
 
-    public Exemplar(Book book, String condition) {
+    public Exemplar(Book book, String condition, Boolean booked) {
         this.book = book;
         this.condition = condition;
+        this.booked = booked;
     }
+
+    public Boolean getBooked() {return booked;}
+
+    public void setBooked(Boolean booked) {this.booked = booked;}
 
     public Book getBook() {
         return book;
@@ -36,4 +44,18 @@ public class Exemplar extends Entity<Integer> {
     public void setCondition(String condition) {
         this.condition = condition;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Exemplar)) return false;
+        Exemplar that = (Exemplar) o;
+        return getId() != null && getId().equals(that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
+    }
+
 }

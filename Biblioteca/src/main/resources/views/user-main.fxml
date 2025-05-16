@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            fx:controller="ro.iss2025.controllers.UserMainController"
+            prefWidth="800" prefHeight="600">
+
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <HBox spacing="10">
+                <TextField fx:id="searchAuthorField" promptText="Filtreaza dupa autor" onKeyReleased="#handleSearch"/>
+                <TextField fx:id="searchTitleField" promptText="Filtreaza dupa titlu" onKeyReleased="#handleSearch"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <ImageView fx:id="cartIcon" fitHeight="32" fitWidth="32" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="/views/cart-icon.png" />
+                    </image>
+                </ImageView>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true">
+            <VBox fx:id="booksPane" spacing="15">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                </padding>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

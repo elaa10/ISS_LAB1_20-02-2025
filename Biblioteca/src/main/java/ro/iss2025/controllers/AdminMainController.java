@@ -73,6 +73,5 @@ public class AdminMainController implements Observer<Event> {
 
     @Override
     public void update(Event event) {
-        // poți adăuga aici logica de actualizare pentru admin
     }
 }

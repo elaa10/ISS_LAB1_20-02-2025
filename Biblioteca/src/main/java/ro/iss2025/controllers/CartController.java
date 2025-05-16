@@ -109,7 +109,6 @@ public class CartController implements Observer<Event> {
 
     @Override
     public void update(Event event) {
-        // Eliminăm din coș cărțile care au devenit indisponibile
         boolean modified = false;
         Iterator<Exemplar> it = cart.iterator();
         while (it.hasNext()) {

@@ -26,7 +26,6 @@ public class BorrowId implements Serializable {
         this.dateOfBorrow = dateOfBorrow;
     }
 
-    // Getteri și Setteri
 
     public Integer getUserId() {
         return userId;

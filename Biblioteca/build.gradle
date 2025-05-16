@@ -4,7 +4,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
-group = 'ro.mpp2025'
+group = 'ro.iss2025'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -12,7 +12,7 @@ repositories {
 }
 
 application {
-    mainClass = 'ro.mpp2025.Main'
+    mainClass = 'ro.iss2025.Main'
 }
 
 
@@ -30,6 +30,14 @@ dependencies {
     implementation 'org.openjfx:javafx-base:17'
 
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.4'
+
+    // Hibernate + JPA (Jakarta Persistence)
+    implementation 'org.hibernate.orm:hibernate-core:6.4.4.Final'
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+
+    // Logging
+    implementation 'org.slf4j:slf4j-api:2.0.13'
+    runtimeOnly 'org.slf4j:slf4j-simple:2.0.13'
 }
 
 run {
@@ -48,7 +56,7 @@ jar{
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     manifest{
-        attributes('Main-Class' : 'ro.mpp2025.Main')
+        attributes('Main-Class' : 'ro.iss2025.Main')
     }
     from {
         configurations.runtimeClasspath.collect{it.isDirectory() ?it : zipTree(it)}

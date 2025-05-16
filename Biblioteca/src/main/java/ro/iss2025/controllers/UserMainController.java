@@ -169,7 +169,6 @@ public class UserMainController implements Initializable, Observer<Event> {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // setup optional
     }
 
     private void showInfo(String msg) {

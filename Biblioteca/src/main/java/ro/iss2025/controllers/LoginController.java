@@ -1,3 +1,4 @@
+// Updated LoginController
 package ro.iss2025.controllers;
 
 import javafx.fxml.FXML;
@@ -31,14 +32,16 @@ public class LoginController {
             int id = Integer.parseInt(idField.getText().trim());
             String password = passwordField.getText().trim();
 
-            User user = service.loginUser(id, password);
-
-            if (user != null) {
-                openUserMainWindow(user);
+            User user = service.findUserById(id);
+            if (user != null && user.getPassword().equals(password)) {
+                if (user.getAdmin()) {
+                    openAdminMainWindow(user);
+                } else {
+                    openUserMainWindow(user);
+                }
             } else {
-                showError("ID sau parolă incorectă, sau contul nu este de tip user.");
+                showError("ID sau parolă incorectă.");
             }
-
         } catch (NumberFormatException e) {
             showError("ID-ul trebuie să fie un număr.");
         }
@@ -77,11 +80,28 @@ public class LoginController {
             stage.setScene(scene);
             stage.show();
 
-            ((Stage) idField.getScene().getWindow()).close();
-
         } catch (Exception e) {
             e.printStackTrace();
             showError("Eroare la deschiderea ferestrei principale.");
+        }
+    }
+
+    private void openAdminMainWindow(User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/admin-main.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            AdminMainController controller = loader.getController();
+            controller.setService(service, user);
+
+            Stage stage = new Stage();
+            stage.setTitle("Panou Administrator");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Eroare la deschiderea panoului administratorului.");
         }
     }
 

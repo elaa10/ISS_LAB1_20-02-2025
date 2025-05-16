@@ -40,7 +40,6 @@ public class Service implements Observable<Event> {
         return userRepository.findOne(id);
     }
 
-
     public Integer registerUser(String name, String address, String phone, String cnp, String password) {
         User user = new User(name, address, cnp, phone, false, password);
         boolean success = userRepository.save(user);
@@ -67,6 +66,20 @@ public class Service implements Observable<Event> {
             notifyObservers(new AvailabilityEvent(borrow.getExemplar()));
         }
         return added;
+    }
+
+    public List<Borrow> getAllBorrows() {
+        List<Borrow> all = new ArrayList<>();
+        borrowRepository.findAll().forEach(all::add);
+        return all;
+    }
+
+    public boolean updateBorrow(Borrow borrow) {
+        boolean updated = borrowRepository.update(borrow);
+        if (updated) {
+            notifyObservers(new AvailabilityEvent(borrow.getExemplar()));
+        }
+        return updated;
     }
 
     @Override

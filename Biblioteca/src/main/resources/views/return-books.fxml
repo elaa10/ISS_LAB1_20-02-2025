@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            fx:controller="ro.iss2025.controllers.ReturnBookController"
+            prefWidth="800" prefHeight="600">
+
+    <center>
+        <TableView fx:id="borrowTable">
+            <columns>
+                <TableColumn fx:id="colUserId" text="ID Utilizator" prefWidth="100"/>
+                <TableColumn fx:id="colUserName" text="Nume Utilizator" prefWidth="150"/>
+                <TableColumn fx:id="colExemplarId" text="ID Exemplar" prefWidth="100"/>
+                <TableColumn fx:id="colTitle" text="Titlu Carte" prefWidth="200"/>
+                <TableColumn fx:id="colBorrowDate" text="Dată Împrumut" prefWidth="150"/>
+                <TableColumn fx:id="colReturnDate" text="Dată Returnare" prefWidth="150"/>
+                <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" spacing="10">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Button fx:id="returnButton" text="Returnează"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;"
+                    prefWidth="200"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

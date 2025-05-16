@@ -17,12 +17,12 @@ public class Borrow extends CompositeEntity<BorrowId> {
     public void setId(BorrowId id) { this.id = id; }
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("userId")
     @JoinColumn(name = "id_user")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("exemplarId")
     @JoinColumn(name = "id_exemplar")
     private Exemplar exemplar;
